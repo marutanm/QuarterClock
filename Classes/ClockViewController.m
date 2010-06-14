@@ -10,6 +10,8 @@
 
 @implementation ClockViewController
 
+@synthesize currenTimeArray;
+
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
@@ -21,7 +23,6 @@
     NSLog(@"%s", __func__);
     UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     label.backgroundColor = [UIColor blackColor];
-    // label.text = @"hoge";
     label.text = text;
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
@@ -31,25 +32,24 @@
     return label;
 }
 
-- (NSArray *)loadCurrentTime {
+- (void)loadCurrentTime {
     NSLog(@"%s", __func__);
     NSString *date= [[NSDate date] description];
     NSString *time = [[date componentsSeparatedByString:@" "] objectAtIndex:1];
     NSLog(@"%@", time);
 
-    NSMutableArray *currenTimeArray = [NSMutableArray array];
+    NSMutableArray *tempArray = [NSMutableArray array];
     int i;
     for (i = 0; i < 5; i++) {
-        // NSLog(@"%d - %@", i, [time substringWithRange:NSMakeRange(i, 1)]);
         if (i != 2) {
-            [currenTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+            [tempArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
     
-    // NSLog(@"%@",[time substringWithRange:NSMakeRange(0, 1)]);
+    currenTimeArray = tempArray;
     NSLog(@"%@",currenTimeArray);
 
-    return currenTimeArray;
+    [tempArray release];
 }
 
 - (void)didReceiveMemoryWarning {
