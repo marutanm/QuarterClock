@@ -16,41 +16,53 @@
     NSLog(@"%s", __func__);
     [super loadView];
     place = 0;
-    [self.view addSubview:[self loadLabel:@"1"]];
-    [self loadCurrentTime];
+    // [self.view addSubview:[self loadLabel:@"1"]];
+    [self.view addSubview:[self loadLabel]];
+    // [self loadCurrentTime];
 }
 
-- (UILabel *)loadLabel:(NSString *)text {
-    NSLog(@"%s", __func__);
+// - (UILabel *)loadLabel:(NSString *)text {
+- (UILabel *)loadLabel {
+    NSLog(@"Start: %s", __func__);
     UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     label.backgroundColor = [UIColor blackColor];
-    label.text = text;
+    // label.text = text;
+    [self loadCurrentTime];
+    label.text = [currenTimeArray objectAtIndex:place];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
     label.adjustsFontSizeToFitWidth = YES;
     label.textAlignment = UITextAlignmentCenter;
-
+    NSLog(@"End: %s", __func__);
     return label;
 }
 
 - (void)loadCurrentTime {
-    NSLog(@"%s", __func__);
+    NSLog(@"Start: %s", __func__);
+
+    if (!currenTimeArray) {
+        currenTimeArray = [NSMutableArray array];
+    }
+    [currenTimeArray removeAllObjects];
+
     NSString *date= [[NSDate date] description];
     NSString *time = [[date componentsSeparatedByString:@" "] objectAtIndex:1];
     NSLog(@"%@", time);
 
-    NSMutableArray *tempArray = [NSMutableArray array];
+    // NSMutableArray *tempArray = [NSMutableArray array];
     int i;
     for (i = 0; i < 5; i++) {
         if (i != 2) {
-            [tempArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+            [currenTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+            // [tempArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
     
-    currenTimeArray = tempArray;
+    // [currenTimeArray addObjectsFromArray:tempArray];
     NSLog(@"%@",currenTimeArray);
 
-    [tempArray release];
+    // [tempArray release];
+    NSLog(@"End: %s", __func__);
 }
 
 - (void)didReceiveMemoryWarning {
