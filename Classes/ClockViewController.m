@@ -1,4 +1,4 @@
-    //
+//
 //  ClockViewController.m
 //  QuarterClock
 //
@@ -21,11 +21,16 @@
 }
 */
 
-/*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+    NSLog(@"%s", __func__);
+    [super loadView];
+    UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // label.backgroundColor = [UIColor redColor];
+    // label.text = @"hoge";
+    label.textAlignment = UITextAlignmentCenter;
+    [self.view addSubview:label];
 }
-*/
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

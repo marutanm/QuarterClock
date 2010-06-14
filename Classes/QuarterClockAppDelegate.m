@@ -7,6 +7,7 @@
 //
 
 #import "QuarterClockAppDelegate.h"
+#import "ClockViewController.h"
 
 @implementation QuarterClockAppDelegate
 
@@ -17,6 +18,8 @@
 
     NSLog(@"%s", __func__);
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    ClockViewController *viewController = [[ClockViewController alloc] init];
+    [window addSubview:viewController.view];
 	
     [window makeKeyAndVisible];
 	
