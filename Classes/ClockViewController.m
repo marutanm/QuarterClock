@@ -15,6 +15,7 @@
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
+    place = 0;
     [self.view addSubview:[self loadLabel:@"1"]];
     [self loadCurrentTime];
 }

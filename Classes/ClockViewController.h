@@ -12,7 +12,7 @@
 @interface ClockViewController : UIViewController {
         
     NSArray *currenTimeArray;
-
+    NSInteger place;
 }
 
 @property (nonatomic, retain) NSArray *currenTimeArray;
