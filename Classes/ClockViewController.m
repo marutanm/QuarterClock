@@ -10,7 +10,7 @@
 
 @implementation ClockViewController
 
-@synthesize currenTimeArray;
+@synthesize currentTimeArray;
 
 - (void)loadView {
     NSLog(@"%s", __func__);
@@ -28,7 +28,7 @@
     label.backgroundColor = [UIColor blackColor];
     // label.text = text;
     [self loadCurrentTime];
-    label.text = [currenTimeArray objectAtIndex:place];
+    label.text = [currentTimeArray objectAtIndex:place];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
     label.adjustsFontSizeToFitWidth = YES;
@@ -40,10 +40,10 @@
 - (void)loadCurrentTime {
     NSLog(@"Start: %s", __func__);
 
-    if (!currenTimeArray) {
-        currenTimeArray = [NSMutableArray array];
+    if (!currentTimeArray) {
+        currentTimeArray = [NSMutableArray array];
     }
-    [currenTimeArray removeAllObjects];
+    [currentTimeArray removeAllObjects];
 
     NSString *date= [[NSDate date] description];
     NSString *time = [[date componentsSeparatedByString:@" "] objectAtIndex:1];
@@ -53,13 +53,13 @@
     int i;
     for (i = 0; i < 5; i++) {
         if (i != 2) {
-            [currenTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+            [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
             // [tempArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
     
-    // [currenTimeArray addObjectsFromArray:tempArray];
-    NSLog(@"%@",currenTimeArray);
+    // [currentTimeArray addObjectsFromArray:tempArray];
+    NSLog(@"%@",currentTimeArray);
 
     // [tempArray release];
     NSLog(@"End: %s", __func__);

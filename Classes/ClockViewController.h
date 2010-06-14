@@ -11,10 +11,10 @@
 
 @interface ClockViewController : UIViewController {
         
-    NSMutableArray *currenTimeArray;
+    NSMutableArray *currentTimeArray;
     NSInteger place;
 }
 
-@property (nonatomic, retain) NSMutableArray *currenTimeArray;
+@property (nonatomic, retain) NSMutableArray *currentTimeArray;
 
 @end
