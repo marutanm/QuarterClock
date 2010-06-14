@@ -25,11 +25,20 @@
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
+    [self.view addSubview:[self loadLabel:@"1"]];
+}
+
+- (UILabel *)loadLabel:(NSString *)text {
     UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // label.backgroundColor = [UIColor redColor];
+    label.backgroundColor = [UIColor blackColor];
     // label.text = @"hoge";
+    label.text = text;
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont systemFontOfSize:500];
+    label.adjustsFontSizeToFitWidth = YES;
     label.textAlignment = UITextAlignmentCenter;
-    [self.view addSubview:label];
+
+    return label;
 }
 
 /*
