@@ -15,24 +15,34 @@
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
+    self.view.userInteractionEnabled = YES;
     place = 0;
-    // [self.view addSubview:[self loadLabel:@"1"]];
+    labelTag = 100;
+    [self loadCurrentTime];
     [self.view addSubview:[self loadLabel]];
-    // [self loadCurrentTime];
 }
 
-// - (UILabel *)loadLabel:(NSString *)text {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"Start: %s", __func__);
+    place++;
+    if (place == 4) {
+        place = 0;
+    }
+    NSLog(@"%d", place);
+    [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:place]];
+    NSLog(@"End: %s", __func__);
+}
+
 - (UILabel *)loadLabel {
     NSLog(@"Start: %s", __func__);
     UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     label.backgroundColor = [UIColor blackColor];
-    // label.text = text;
-    [self loadCurrentTime];
     label.text = [currentTimeArray objectAtIndex:place];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
     label.adjustsFontSizeToFitWidth = YES;
     label.textAlignment = UITextAlignmentCenter;
+    label.tag = labelTag;
     NSLog(@"End: %s", __func__);
     return label;
 }
@@ -41,7 +51,8 @@
     NSLog(@"Start: %s", __func__);
 
     if (!currentTimeArray) {
-        currentTimeArray = [NSMutableArray array];
+        // currentTimeArray = [NSMutableArray array];
+        currentTimeArray = [[NSMutableArray alloc] init];
     }
     [currentTimeArray removeAllObjects];
 
@@ -49,19 +60,14 @@
     NSString *time = [[date componentsSeparatedByString:@" "] objectAtIndex:1];
     NSLog(@"%@", time);
 
-    // NSMutableArray *tempArray = [NSMutableArray array];
     int i;
     for (i = 0; i < 5; i++) {
         if (i != 2) {
             [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
-            // [tempArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
-    
-    // [currentTimeArray addObjectsFromArray:tempArray];
-    NSLog(@"%@",currentTimeArray);
+    NSLog(@"%@", currentTimeArray);
 
-    // [tempArray release];
     NSLog(@"End: %s", __func__);
 }
 

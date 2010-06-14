@@ -12,9 +12,13 @@
 @interface ClockViewController : UIViewController {
         
     NSMutableArray *currentTimeArray;
+    NSInteger labelTag;
     NSInteger place;
 }
 
 @property (nonatomic, retain) NSMutableArray *currentTimeArray;
+
+- (UILabel *)loadLabel; 
+- (void)loadCurrentTime;
 
 @end
