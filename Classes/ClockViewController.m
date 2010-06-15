@@ -60,8 +60,8 @@ int digits = 4;
     }
     [currentTimeArray removeAllObjects];
 
-    NSString *date= [[NSDate date] description];
-    NSString *time = [[date componentsSeparatedByString:@" "] objectAtIndex:1];
+    NSString *date = [NSString stringWithString:[[NSDate date] description]];
+    NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
     NSLog(@"%@", time);
 
     int i;
