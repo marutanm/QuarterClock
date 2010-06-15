@@ -20,5 +20,6 @@
 
 - (UILabel *)loadLabel; 
 - (void)loadCurrentTime;
+- (void)updateClock;
 
 @end

@@ -12,6 +12,8 @@
 
 @synthesize currentTimeArray;
 
+int digits = 4;
+
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
@@ -20,12 +22,14 @@
     labelTag = 100;
     [self loadCurrentTime];
     [self.view addSubview:[self loadLabel]];
+
+	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"Start: %s", __func__);
     place++;
-    if (place == 4) {
+    if (place == digits) {
         place = 0;
     }
     NSLog(@"%d", place);
@@ -69,6 +73,15 @@
     NSLog(@"%@", currentTimeArray);
 
     NSLog(@"End: %s", __func__);
+}
+
+- (void)updateClock{
+    NSLog(@"Start: %s", __func__);
+    [self loadCurrentTime];
+    int i;
+    for (i = 0; i < digits; i++) {
+        [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:place]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
