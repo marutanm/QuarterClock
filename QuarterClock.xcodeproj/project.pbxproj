@@ -173,6 +173,7 @@
 				GCC_PREFIX_HEADER = QuarterClock_Prefix.pch;
 				INFOPLIST_FILE = "QuarterClock-Info.plist";
 				PRODUCT_NAME = QuarterClock;
+				SDKROOT = iphonesimulator4.0;
 			};
 			name = Debug;
 		};
