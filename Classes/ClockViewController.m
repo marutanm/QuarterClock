@@ -19,29 +19,13 @@ int digits = 4;
     NSLog(@"%s", __func__);
     [self loadCurrentTime];
     [super loadView];
-    // self.view.userInteractionEnabled = YES;
-    // PageScrollView *scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [scrollView setPages:currentTimeArray];
     [self.view addSubview:scrollView];
 
-    currentDigits = 0;
-    labelTag = 100;
-	// [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+    // [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+    
 }
-
-/*
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"Start: %s", __func__);
-    currentDigits++;
-    if (currentDigits == digits) {
-        currentDigits = 0;
-    }
-    NSLog(@"%d", currentDigits);
-    [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
-    NSLog(@"End: %s", __func__);
-}
-*/
 
 - (UILabel *)loadLabel {
     NSLog(@"Start: %s", __func__);
@@ -70,8 +54,7 @@ int digits = 4;
     NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
     NSLog(@"%@", time);
 
-    int i;
-    for (i = 0; i < digits + 1; i++) {
+    for (int i = 0; i < digits + 1; i++) {
         if (i != 2) {
             [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
