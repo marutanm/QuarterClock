@@ -23,7 +23,7 @@ int digits = 4;
     [scrollView setPages:currentTimeArray];
     [self.view addSubview:scrollView];
 
-    // [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
     
 }
 
@@ -67,10 +67,11 @@ int digits = 4;
 - (void)updateClock{
     NSLog(@"Start: %s", __func__);
     [self loadCurrentTime];
-    int i;
-    for (i = 0; i < digits; i++) {
-        [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
-    }
+    [scrollView updateClock:currentTimeArray];
+    // int i;
+    // for (i = 0; i < digits; i++) {
+        // [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
+    // }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -50,6 +50,28 @@
    NSLog(@"End: %s", __func__);
 }
 
+- (void)updateClock:(NSMutableArray *)pages {
+   NSLog(@"%s", __func__);
+   for (UIView *view in scrollView.subviews) {
+       [view removeFromSuperview];
+   }
+   for (int i = 0; i < [pages count]; i++) {
+       UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
+       label.backgroundColor = [UIColor blackColor];
+       label.textColor = [UIColor whiteColor];
+       label.font = [UIFont systemFontOfSize:500];
+       label.adjustsFontSizeToFitWidth = YES;
+       label.textAlignment = UITextAlignmentCenter;
+
+       NSLog(@"%@", [pages objectAtIndex:i]);
+       label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+       label.text = [pages objectAtIndex:i];
+
+       [scrollView addSubview:label];
+       [label release];
+   }
+}
+
 - (void)layoutViews {
     for (int i = 0; i < [_pages count]; i++) {
         NSLog(@"Start: %s", __func__);
