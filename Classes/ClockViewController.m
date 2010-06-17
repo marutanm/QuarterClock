@@ -7,7 +7,7 @@
 //
 
 #import "ClockViewController.h"
-#import "PageScrollView.h"
+// #import "PageScrollView.h"
 
 @implementation ClockViewController
 
@@ -20,7 +20,8 @@ int digits = 4;
     [self loadCurrentTime];
     [super loadView];
     // self.view.userInteractionEnabled = YES;
-    PageScrollView *scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // PageScrollView *scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [scrollView setPages:currentTimeArray];
     [self.view addSubview:scrollView];
 
