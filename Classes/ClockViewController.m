@@ -7,6 +7,7 @@
 //
 
 #import "ClockViewController.h"
+#import "PageScrollView.h"
 
 @implementation ClockViewController
 
@@ -16,16 +17,19 @@ int digits = 4;
 
 - (void)loadView {
     NSLog(@"%s", __func__);
+    [self loadCurrentTime];
     [super loadView];
-    self.view.userInteractionEnabled = YES;
+    // self.view.userInteractionEnabled = YES;
+    PageScrollView *scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [scrollView setPages:currentTimeArray];
+    [self.view addSubview:scrollView];
+
     currentDigits = 0;
     labelTag = 100;
-    [self loadCurrentTime];
-    [self.view addSubview:[self loadLabel]];
-
-	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+	// [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
 }
 
+/*
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"Start: %s", __func__);
     currentDigits++;
@@ -36,6 +40,7 @@ int digits = 4;
     [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
     NSLog(@"End: %s", __func__);
 }
+*/
 
 - (UILabel *)loadLabel {
     NSLog(@"Start: %s", __func__);
@@ -65,7 +70,7 @@ int digits = 4;
     NSLog(@"%@", time);
 
     int i;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < digits + 1; i++) {
         if (i != 2) {
             [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
