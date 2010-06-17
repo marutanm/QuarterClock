@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		5032072E11C6560800C65899 /* ClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5032072D11C6560800C65899 /* ClockViewController.m */; };
+		506807EF11CA6D3F002C39DF /* PageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506807EE11CA6D3F002C39DF /* PageScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		32CA4F630368D1EE00C91783 /* QuarterClock_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuarterClock_Prefix.pch; sourceTree = "<group>"; };
 		5032072C11C6560800C65899 /* ClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockViewController.h; sourceTree = "<group>"; };
 		5032072D11C6560800C65899 /* ClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockViewController.m; sourceTree = "<group>"; };
+		506807ED11CA6D3F002C39DF /* PageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageScrollView.h; sourceTree = "<group>"; };
+		506807EE11CA6D3F002C39DF /* PageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageScrollView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* QuarterClock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QuarterClock-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,6 +49,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				506807ED11CA6D3F002C39DF /* PageScrollView.h */,
+				506807EE11CA6D3F002C39DF /* PageScrollView.m */,
 				1D3623240D0F684500981E51 /* QuarterClockAppDelegate.h */,
 				1D3623250D0F684500981E51 /* QuarterClockAppDelegate.m */,
 				5032072C11C6560800C65899 /* ClockViewController.h */,
@@ -156,6 +161,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* QuarterClockAppDelegate.m in Sources */,
 				5032072E11C6560800C65899 /* ClockViewController.m in Sources */,
+				506807EF11CA6D3F002C39DF /* PageScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
