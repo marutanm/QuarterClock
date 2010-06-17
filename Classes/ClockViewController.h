@@ -13,7 +13,7 @@
         
     NSMutableArray *currentTimeArray;
     NSInteger labelTag;
-    NSInteger place;
+    NSInteger currentDigits;
 }
 
 @property (nonatomic, retain) NSMutableArray *currentTimeArray;

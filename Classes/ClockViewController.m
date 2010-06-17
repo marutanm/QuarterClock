@@ -18,7 +18,7 @@ int digits = 4;
     NSLog(@"%s", __func__);
     [super loadView];
     self.view.userInteractionEnabled = YES;
-    place = 0;
+    currentDigits = 0;
     labelTag = 100;
     [self loadCurrentTime];
     [self.view addSubview:[self loadLabel]];
@@ -28,12 +28,12 @@ int digits = 4;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"Start: %s", __func__);
-    place++;
-    if (place == digits) {
-        place = 0;
+    currentDigits++;
+    if (currentDigits == digits) {
+        currentDigits = 0;
     }
-    NSLog(@"%d", place);
-    [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:place]];
+    NSLog(@"%d", currentDigits);
+    [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
     NSLog(@"End: %s", __func__);
 }
 
@@ -41,7 +41,7 @@ int digits = 4;
     NSLog(@"Start: %s", __func__);
     UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     label.backgroundColor = [UIColor blackColor];
-    label.text = [currentTimeArray objectAtIndex:place];
+    label.text = [currentTimeArray objectAtIndex:currentDigits];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
     label.adjustsFontSizeToFitWidth = YES;
@@ -70,7 +70,7 @@ int digits = 4;
             [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
-    NSLog(@"%@", currentTimeArray);
+    // NSLog(@"%@", currentTimeArray);
 
     NSLog(@"End: %s", __func__);
 }
@@ -80,7 +80,7 @@ int digits = 4;
     [self loadCurrentTime];
     int i;
     for (i = 0; i < digits; i++) {
-        [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:place]];
+        [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
     }
 }
 
