@@ -1,4 +1,5 @@
 #import "PageScrollView.h"
+#import "DigitsScrollView.h"
 
 @implementation PageScrollView
 
@@ -11,7 +12,8 @@
           _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           self.delegate = nil;
 
-          scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
+          // scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
+          scrollView = [[DigitsScrollView alloc] initWithFrame:_pageRegion];
           scrollView.backgroundColor = [UIColor whiteColor];
           scrollView.pagingEnabled = YES;
           scrollView.delegate = self;
@@ -21,7 +23,7 @@
           [pageControl addTarget:self action:@selector(pageControlDidChange:) forControlEvents:UIControlEventValueChanged];
           pageControl.backgroundColor = [UIColor orangeColor];
           [self addSubview:pageControl];
-          // pageControl.hidden = YES;
+          pageControl.hidden = YES;
       }
       return self;
       NSLog(@"End: %s", __func__);
@@ -49,6 +51,33 @@
        [label release];
    }
    NSLog(@"End: %s", __func__);
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"%s", __func__);
+    [self switchStateHidden:self];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"%s", __func__);
+    [self switchStateHidden:self];
+}
+
+-(void)switchStateHidden:(id)sender{
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
+
+    if (pageControl.hidden == YES) {
+        pageControl.hidden = NO;
+    } else {
+        pageControl.hidden = YES;
+    }
+
+    [UIView commitAnimations];	
 }
 
 - (void)updateClock:(NSMutableArray *)pages {

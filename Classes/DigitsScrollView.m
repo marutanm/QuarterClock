@@ -19,8 +19,18 @@
     return self;
 }
 
-- (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view {
-    NSLog(@"Start: %s", __func__);
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"%s", __func__);
+    if (self.superview != nil) {
+        [self.superview touchesBegan:touches withEvent:event];
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"%s", __func__);
+    if (self.superview != nil) {
+        [self.superview touchesEnded:touches withEvent:event];
+    }
 }
 
 - (void)dealloc {
