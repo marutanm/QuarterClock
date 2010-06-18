@@ -13,14 +13,14 @@
           self.delegate = nil;
 
           scrollView = [[DigitsScrollView alloc] initWithFrame:_pageRegion];
-          scrollView.backgroundColor = [UIColor whiteColor];
+          scrollView.backgroundColor = [UIColor blackColor];
           scrollView.pagingEnabled = YES;
           scrollView.delegate = self;
           [self addSubview:scrollView];
 
           pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
           [pageControl addTarget:self action:@selector(pageControlDidChange:) forControlEvents:UIControlEventValueChanged];
-          pageControl.backgroundColor = [UIColor orangeColor];
+          // pageControl.backgroundColor = [UIColor orangeColor];
           [self addSubview:pageControl];
           pageControl.hidden = YES;
       }
