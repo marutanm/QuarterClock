@@ -12,7 +12,6 @@
           _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           self.delegate = nil;
 
-          // scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
           scrollView = [[DigitsScrollView alloc] initWithFrame:_pageRegion];
           scrollView.backgroundColor = [UIColor whiteColor];
           scrollView.pagingEnabled = YES;
@@ -67,7 +66,7 @@
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDuration:1];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(endAnimation)];
 
@@ -126,6 +125,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     pageControl.currentPage = self.currentPage;
     [self notifyPageChange];
+    pageControl.hidden = YES;
 }
 
 - (void) pageControlDidChange:(id)sender {
