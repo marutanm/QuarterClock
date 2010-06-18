@@ -21,6 +21,7 @@
           [pageControl addTarget:self action:@selector(pageControlDidChange:) forControlEvents:UIControlEventValueChanged];
           pageControl.backgroundColor = [UIColor orangeColor];
           [self addSubview:pageControl];
+          // pageControl.hidden = YES;
       }
       return self;
       NSLog(@"End: %s", __func__);
@@ -51,36 +52,24 @@
 }
 
 - (void)updateClock:(NSMutableArray *)pages {
-   NSLog(@"%s", __func__);
-   for (UIView *view in scrollView.subviews) {
-       [view removeFromSuperview];
-   }
-   for (int i = 0; i < [pages count]; i++) {
-       UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
-       label.backgroundColor = [UIColor blackColor];
-       label.textColor = [UIColor whiteColor];
-       label.font = [UIFont systemFontOfSize:500];
-       label.adjustsFontSizeToFitWidth = YES;
-       label.textAlignment = UITextAlignmentCenter;
+    NSLog(@"%s", __func__);
+    for (UIView *view in scrollView.subviews) {
+        [view removeFromSuperview];
+    }
+    for (int i = 0; i < [pages count]; i++) {
+        UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
+        label.backgroundColor = [UIColor blackColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:500];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.textAlignment = UITextAlignmentCenter;
 
-       NSLog(@"%@", [pages objectAtIndex:i]);
-       label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-       label.text = [pages objectAtIndex:i];
+        // NSLog(@"%@", [pages objectAtIndex:i]);
+        label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+        label.text = [pages objectAtIndex:i];
 
-       [scrollView addSubview:label];
-       [label release];
-   }
-}
-
-- (void)layoutViews {
-    for (int i = 0; i < [_pages count]; i++) {
-        NSLog(@"Start: %s", __func__);
-        UIView *page = [_pages objectAtIndex:i];
-        CGRect bounds = page.bounds;
-        CGRect frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        page.frame = frame;
-        page.bounds = bounds;
-        [scrollView addSubview:page];
+        [scrollView addSubview:label];
+        [label release];
     }
 }
 
