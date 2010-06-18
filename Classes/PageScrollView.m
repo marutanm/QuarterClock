@@ -66,8 +66,8 @@
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:1];
-    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:1.0f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDidStopSelector:@selector(endAnimation)];
 
     if (pageControl.hidden == YES) {
