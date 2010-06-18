@@ -122,6 +122,10 @@
     return (int) (scrollView.contentOffset.x / _pageRegion.size.width);
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    pageControl.hidden = NO;
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     pageControl.currentPage = self.currentPage;
     [self notifyPageChange];
