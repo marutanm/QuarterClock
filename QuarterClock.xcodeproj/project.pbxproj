@@ -15,6 +15,7 @@
 		5032072E11C6560800C65899 /* ClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5032072D11C6560800C65899 /* ClockViewController.m */; };
 		506807EF11CA6D3F002C39DF /* PageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506807EE11CA6D3F002C39DF /* PageScrollView.m */; };
 		50DAE08A11CBA39500A8AE18 /* DigitsScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAE08911CBA39500A8AE18 /* DigitsScrollView.m */; };
+		50DAE17011CD04F600A8AE18 /* DigitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAE16F11CD04F600A8AE18 /* DigitView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		506807EE11CA6D3F002C39DF /* PageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageScrollView.m; sourceTree = "<group>"; };
 		50DAE08811CBA39500A8AE18 /* DigitsScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitsScrollView.h; sourceTree = "<group>"; };
 		50DAE08911CBA39500A8AE18 /* DigitsScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DigitsScrollView.m; sourceTree = "<group>"; };
+		50DAE16E11CD04F600A8AE18 /* DigitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitView.h; sourceTree = "<group>"; };
+		50DAE16F11CD04F600A8AE18 /* DigitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DigitView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* QuarterClock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QuarterClock-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +63,8 @@
 				5032072D11C6560800C65899 /* ClockViewController.m */,
 				50DAE08811CBA39500A8AE18 /* DigitsScrollView.h */,
 				50DAE08911CBA39500A8AE18 /* DigitsScrollView.m */,
+				50DAE16E11CD04F600A8AE18 /* DigitView.h */,
+				50DAE16F11CD04F600A8AE18 /* DigitView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 				5032072E11C6560800C65899 /* ClockViewController.m in Sources */,
 				506807EF11CA6D3F002C39DF /* PageScrollView.m in Sources */,
 				50DAE08A11CBA39500A8AE18 /* DigitsScrollView.m in Sources */,
+				50DAE17011CD04F600A8AE18 /* DigitView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
