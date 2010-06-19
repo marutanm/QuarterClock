@@ -1,5 +1,6 @@
 #import "PageScrollView.h"
 #import "DigitsScrollView.h"
+#import "DigitView.h"
 
 @implementation PageScrollView
 
@@ -34,22 +35,33 @@
    scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [pages count], _pageRegion.size.height);
    pageControl.numberOfPages = [pages count];
    pageControl.currentPage = 0;
-   for (int i = 0; i < [pages count]; i++) {
-       UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
-       label.backgroundColor = [UIColor blackColor];
-       label.textColor = [UIColor whiteColor];
-       label.font = [UIFont systemFontOfSize:500];
-       label.adjustsFontSizeToFitWidth = YES;
-       label.textAlignment = UITextAlignmentCenter;
 
-       NSLog(@"%@", [pages objectAtIndex:i]);
-       label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-       label.text = [pages objectAtIndex:i];
-
-       [scrollView addSubview:label];
-       [label release];
-   }
+   [self updateClock:pages];
    NSLog(@"End: %s", __func__);
+}
+
+- (void)updateClock:(NSMutableArray *)pages {
+    NSLog(@"%s", __func__);
+    for (UIView *view in scrollView.subviews) {
+        [view removeFromSuperview];
+    }
+    for (int i = 0; i < [pages count]; i++) {
+        // UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
+        // label.backgroundColor = [UIColor blackColor];
+        // label.textColor = [UIColor whiteColor];
+        // label.font = [UIFont systemFontOfSize:500];
+        // label.adjustsFontSizeToFitWidth = YES;
+        // label.textAlignment = UITextAlignmentCenter;
+
+        // label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+        // label.text = [pages objectAtIndex:i];
+
+        DigitView *view = [[DigitView alloc] initWithFrame:CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height)];
+        [scrollView addSubview:view];
+        [view release];
+        // [scrollView addSubview:label];
+        // [label release];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -77,28 +89,6 @@
     }
 
     [UIView commitAnimations];	
-}
-
-- (void)updateClock:(NSMutableArray *)pages {
-    NSLog(@"%s", __func__);
-    for (UIView *view in scrollView.subviews) {
-        [view removeFromSuperview];
-    }
-    for (int i = 0; i < [pages count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
-        label.backgroundColor = [UIColor blackColor];
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:500];
-        label.adjustsFontSizeToFitWidth = YES;
-        label.textAlignment = UITextAlignmentCenter;
-
-        // NSLog(@"%@", [pages objectAtIndex:i]);
-        label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        label.text = [pages objectAtIndex:i];
-
-        [scrollView addSubview:label];
-        [label release];
-    }
 }
 
 - (id)getDelegate {
