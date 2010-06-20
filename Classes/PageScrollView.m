@@ -43,24 +43,16 @@
 - (void)updateClock:(NSMutableArray *)pages {
     NSLog(@"%s", __func__);
     for (UIView *view in scrollView.subviews) {
-        [view removeFromSuperview];
+        // [view removeFromSuperview];
+        view = nil;
     }
     for (int i = 0; i < [pages count]; i++) {
-        // UILabel *label = [[UILabel alloc] initWithFrame:_pageRegion];
-        // label.backgroundColor = [UIColor blackColor];
-        // label.textColor = [UIColor whiteColor];
-        // label.font = [UIFont systemFontOfSize:500];
-        // label.adjustsFontSizeToFitWidth = YES;
-        // label.textAlignment = UITextAlignmentCenter;
-
-        // label.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        // label.text = [pages objectAtIndex:i];
-
-        DigitView *view = [[DigitView alloc] initWithFrame:CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height)];
-        [scrollView addSubview:view];
-        [view release];
-        // [scrollView addSubview:label];
-        // [label release];
+        // NSLog(@"%@", [[pages objectAtIndex:i] class]);
+        DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
+        digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+        [digitView text:[pages objectAtIndex:i]];
+        [scrollView addSubview:digitView];
+        [digitView release];
     }
 }
 
