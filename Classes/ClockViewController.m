@@ -7,7 +7,6 @@
 //
 
 #import "ClockViewController.h"
-// #import "PageScrollView.h"
 
 @implementation ClockViewController
 
@@ -27,20 +26,6 @@ int digits = 4;
     
 }
 
-// - (UILabel *)loadLabel {
-    // NSLog(@"Start: %s", __func__);
-    // UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // label.backgroundColor = [UIColor blackColor];
-    // label.text = [currentTimeArray objectAtIndex:currentDigits];
-    // label.textColor = [UIColor whiteColor];
-    // label.font = [UIFont systemFontOfSize:500];
-    // label.adjustsFontSizeToFitWidth = YES;
-    // label.textAlignment = UITextAlignmentCenter;
-    // label.tag = labelTag;
-    // NSLog(@"End: %s", __func__);
-    // return label;
-// }
-
 - (void)loadCurrentTime {
     NSLog(@"Start: %s", __func__);
 
@@ -59,7 +44,6 @@ int digits = 4;
             [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
-    // NSLog(@"%@", currentTimeArray);
 
     NSLog(@"End: %s", __func__);
 }
@@ -68,10 +52,6 @@ int digits = 4;
     NSLog(@"Start: %s", __func__);
     [self loadCurrentTime];
     [scrollView updateClock:currentTimeArray];
-    // int i;
-    // for (i = 0; i < digits; i++) {
-        // [[self.view viewWithTag:labelTag] setText:[currentTimeArray objectAtIndex:currentDigits]];
-    // }
 }
 
 - (void)didReceiveMemoryWarning {

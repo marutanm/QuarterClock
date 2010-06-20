@@ -21,7 +21,6 @@
 
           pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
           [pageControl addTarget:self action:@selector(pageControlDidChange:) forControlEvents:UIControlEventValueChanged];
-          // pageControl.backgroundColor = [UIColor orangeColor];
           [self addSubview:pageControl];
           pageControl.hidden = YES;
       }
@@ -43,11 +42,9 @@
 - (void)updateClock:(NSMutableArray *)pages {
     NSLog(@"%s", __func__);
     for (UIView *view in scrollView.subviews) {
-        // [view removeFromSuperview];
         view = nil;
     }
     for (int i = 0; i < [pages count]; i++) {
-        // NSLog(@"%@", [[pages objectAtIndex:i] class]);
         DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
         digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
         [digitView text:[pages objectAtIndex:i]];
