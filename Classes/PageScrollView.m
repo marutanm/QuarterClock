@@ -1,5 +1,4 @@
 #import "PageScrollView.h"
-#import "DigitsScrollView.h"
 #import "DigitView.h"
 
 @implementation PageScrollView
@@ -14,7 +13,7 @@
           _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           self.delegate = nil;
 
-          scrollView = [[DigitsScrollView alloc] initWithFrame:_pageRegion];
+          scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
           scrollView.backgroundColor = [UIColor blackColor];
           scrollView.pagingEnabled = YES;
           scrollView.delegate = self;
