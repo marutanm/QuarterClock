@@ -22,7 +22,7 @@ int digits = 4;
     [scrollView setPages:currentTimeArray];
     [self.view addSubview:scrollView];
 
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+    // [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
     
 }
 

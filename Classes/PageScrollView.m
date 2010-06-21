@@ -55,15 +55,16 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"%s", __func__);
-    [self switchStateHidden:self];
+    // [self switchStateHidden:self];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"%s", __func__);
-    [self switchStateHidden:self];
+    // [self switchStateHidden:self];
 }
 
--(void)switchStateHidden:(id)sender{
+-(void)switchStateHidden {
+    NSLog(@"%s", __func__);
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     [UIView beginAnimations:nil context:context];
@@ -102,16 +103,31 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pageControl.hidden = NO;
+    NSLog(@"%s", __func__);
+    // pageControl.hidden = NO;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"%s", __func__);
+    // pageControl.currentPage = self.currentPage;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"%s", __func__);
     pageControl.currentPage = self.currentPage;
     [self notifyPageChange];
-    pageControl.hidden = YES;
+
+    // hide pageControl 1 sec later by timer
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // NSLog(@"%s", __func__);
+    pageControl.hidden = NO;
 }
 
 - (void) pageControlDidChange:(id)sender {
+    NSLog(@"%s", __func__);
     UIPageControl *control = (UIPageControl *) sender;
     if (control == pageControl) {
         self.currentPage = control.currentPage;
