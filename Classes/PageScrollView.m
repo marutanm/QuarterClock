@@ -4,6 +4,7 @@
 
 @implementation PageScrollView
 
+@synthesize updateTimer;
 - (id)initWithFrame:(CGRect)frame {
       NSLog(@"Start: %s", __func__);
       self = [super initWithFrame:frame];
@@ -64,6 +65,7 @@
 }
 
 -(void)switchStateHidden {
+// -(void)switchStateHidden:(NSTimer *)aTimer {
     NSLog(@"%s", __func__);
 
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -72,11 +74,7 @@
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDidStopSelector:@selector(endAnimation)];
 
-    if (pageControl.hidden == YES) {
-        pageControl.hidden = NO;
-    } else {
-        pageControl.hidden = YES;
-    }
+    pageControl.hidden = YES;
 
     [UIView commitAnimations];	
 }
@@ -103,31 +101,49 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    NSLog(@"%s", __func__);
-    // pageControl.hidden = NO;
+    // NSLog(@"%s", __func__);
+    pageControl.hidden = NO;
+
+    // NSLog(@"updateTimer: %@", updateTimer);
+    // if (updateTimer) {
+    if ([updateTimer isValid]) {
+        // NSLog(@"invalidate: %@", updateTimer);
+            [updateTimer invalidate];
+            // updateTimer = nil;
+        // }
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    NSLog(@"%s", __func__);
+    // NSLog(@"%s", __func__);
     // pageControl.currentPage = self.currentPage;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    NSLog(@"%s", __func__);
+    // NSLog(@"%s", __func__);
     pageControl.currentPage = self.currentPage;
     [self notifyPageChange];
 
     // hide pageControl 1 sec later by timer
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
+    if (!updateTimer) {
+        // NSLog(@"%@", updateTimer);
+        updateTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
+        // NSLog(@"updateTimer: %@", updateTimer);
+    } else if (![updateTimer isValid]) {
+        [updateTimer release];
+        updateTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
+    }
+    [[NSRunLoop mainRunLoop] addTimer:updateTimer forMode:NSRunLoopCommonModes];
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // NSLog(@"%s", __func__);
-    pageControl.hidden = NO;
+    // pageControl.hidden = NO;
 }
 
 - (void) pageControlDidChange:(id)sender {
-    NSLog(@"%s", __func__);
+    // NSLog(@"%s", __func__);
     UIPageControl *control = (UIPageControl *) sender;
     if (control == pageControl) {
         self.currentPage = control.currentPage;
