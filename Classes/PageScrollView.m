@@ -4,6 +4,7 @@
 @implementation PageScrollView
 
 @synthesize updateTimer;
+
 - (id)initWithFrame:(CGRect)frame {
       NSLog(@"Start: %s", __func__);
       self = [super initWithFrame:frame];
@@ -20,7 +21,7 @@
           [self addSubview:scrollView];
 
           pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
-          [pageControl addTarget:self action:@selector(pageControlDidChange:) forControlEvents:UIControlEventValueChanged];
+          pageControl.userInteractionEnabled = NO;
           [self addSubview:pageControl];
           pageControl.hidden = YES;
       }
@@ -99,7 +100,6 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // NSLog(@"%s", __func__);
     pageControl.currentPage = self.currentPage;
-    [self notifyPageChange];
 
     // hide pageControl 1 sec later by timer
     if (!updateTimer) {
@@ -110,25 +110,6 @@
     }
     [[NSRunLoop mainRunLoop] addTimer:updateTimer forMode:NSRunLoopCommonModes];
 
-}
-
-- (void) pageControlDidChange:(id)sender {
-    // NSLog(@"%s", __func__);
-    UIPageControl *control = (UIPageControl *) sender;
-    if (control == pageControl) {
-        self.currentPage = control.currentPage;
-    }
-    [self notifyPageChange];
-}
-
-- (void) notifyPageChange {
-    if (self.delegate != nil) {
-        if ([_delegate conformsToProtocol:@protocol(PageScrollViewDelegate)]) {
-        if ([_delegate respondsToSelector:@selector(pageScrollViewDidChangeCurrentPage:currentPage:)]) {
-                [self.delegate pageScrollViewDidChangeCurrentPage:(PageScrollView *)self currentPage:self.currentPage];
-        }
-        }
-    }
 }
 
 @end
