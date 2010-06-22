@@ -53,18 +53,7 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"%s", __func__);
-    // [self switchStateHidden:self];
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"%s", __func__);
-    // [self switchStateHidden:self];
-}
-
 -(void)switchStateHidden {
-// -(void)switchStateHidden:(NSTimer *)aTimer {
     NSLog(@"%s", __func__);
 
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -100,22 +89,11 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    // NSLog(@"%s", __func__);
     pageControl.hidden = NO;
 
-    // NSLog(@"updateTimer: %@", updateTimer);
-    // if (updateTimer) {
     if ([updateTimer isValid]) {
-        // NSLog(@"invalidate: %@", updateTimer);
-            [updateTimer invalidate];
-            // updateTimer = nil;
-        // }
+        [updateTimer invalidate];
     }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    // NSLog(@"%s", __func__);
-    // pageControl.currentPage = self.currentPage;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -125,20 +103,13 @@
 
     // hide pageControl 1 sec later by timer
     if (!updateTimer) {
-        // NSLog(@"%@", updateTimer);
         updateTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
-        // NSLog(@"updateTimer: %@", updateTimer);
     } else if (![updateTimer isValid]) {
         [updateTimer release];
         updateTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:0 target:self selector:@selector(switchStateHidden) userInfo:nil repeats:NO];
     }
     [[NSRunLoop mainRunLoop] addTimer:updateTimer forMode:NSRunLoopCommonModes];
 
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // NSLog(@"%s", __func__);
-    // pageControl.hidden = NO;
 }
 
 - (void) pageControlDidChange:(id)sender {
