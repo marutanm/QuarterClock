@@ -3,7 +3,7 @@
 
 @implementation PageScrollView
 
-@synthesize updateTimer;
+@synthesize updateTimer, delegate;
 
 - (id)initWithFrame:(CGRect)frame {
       NSLog(@"Start: %s", __func__);
@@ -18,6 +18,7 @@
           scrollView.backgroundColor = [UIColor blackColor];
           scrollView.pagingEnabled = YES;
           scrollView.delegate = self;
+          [self setPages];
           [self addSubview:scrollView];
 
           pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
@@ -29,29 +30,55 @@
       NSLog(@"End: %s", __func__);
 }
 
-- (void)setPages:(NSMutableArray *)pages {
+- (void)setPages {
    NSLog(@"Start: %s", __func__);
+   [self loadCurrentTime];
+
    scrollView.contentOffset = CGPointMake(0.0, 0.0);
-   scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [pages count], _pageRegion.size.height);
-   pageControl.numberOfPages = [pages count];
+   scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [currentTimeArray count], _pageRegion.size.height);
+   pageControl.numberOfPages = [currentTimeArray count];
    pageControl.currentPage = 0;
 
-   [self updateClock:pages];
    NSLog(@"End: %s", __func__);
 }
 
-- (void)updateClock:(NSMutableArray *)pages {
-    NSLog(@"%s", __func__);
-    for (UIView *view in scrollView.subviews) {
+- (void)loadCurrentTime {
+    NSLog(@"Start: %s", __func__);
+
+    if (!currentTimeArray) {
+        // currentTimeArray = [NSMutableArray array];
+        currentTimeArray = [[NSMutableArray alloc] init];
+    }
+    [currentTimeArray removeAllObjects];
+
+    NSString *date = [NSString stringWithString:[[NSDate date] description]];
+    NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
+    NSLog(@"%@", time);
+
+    // for (int i = 0; i < digits + 1; i++) {
+    for (int i = 0; i < 5; i++) {
+        if (i != 2) {
+            [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+        }
+    }
+
+    NSLog(@"End: %s", __func__);
+}
+
+- (void)updateClock {
+    NSLog(@"Start: %s", __func__);
+    [self loadCurrentTime];
+    for (UIView *view in self.subviews) {
         view = nil;
     }
-    for (int i = 0; i < [pages count]; i++) {
+    for (int i = 0; i < [currentTimeArray count]; i++) {
         DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
         digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        [digitView text:[pages objectAtIndex:i]];
+        [digitView text:[currentTimeArray objectAtIndex:i]];
         [scrollView addSubview:digitView];
         [digitView release];
     }
+    NSLog(@"End: %s", __func__);
 }
 
 -(void)switchStateHidden {
@@ -66,18 +93,6 @@
     pageControl.hidden = YES;
 
     [UIView commitAnimations];	
-}
-
-- (id)getDelegate {
-    return _delegate;
-}
-
-- (void)setDelegate:(id)delegate {
-    _delegate = delegate;
-}
-
-- (NSMutableArray *)getPages {
-    return _pages;
 }
 
 - (void)setCurrentPage:(int)page {
