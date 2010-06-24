@@ -9,37 +9,37 @@
       NSLog(@"Start: %s", __func__);
       self = [super initWithFrame:frame];
       if (self != nil) {
-          NSLog([NSString stringWithFormat:@"%f, %f, %f, %f", frame.origin.x, frame.origin.y, frame.size.height - 60.0, frame.size.width]);
           _pageRegion = CGRectMake(0, 0, frame.size.width, frame.size.height);
           _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           self.delegate = nil;
 
-          scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
-          scrollView.backgroundColor = [UIColor blackColor];
-          scrollView.pagingEnabled = YES;
-          scrollView.delegate = self;
           [self setPages];
           [self addSubview:scrollView];
-
-          pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
-          pageControl.userInteractionEnabled = NO;
           [self addSubview:pageControl];
-          pageControl.hidden = YES;
       }
       return self;
       NSLog(@"End: %s", __func__);
 }
 
 - (void)setPages {
-   NSLog(@"Start: %s", __func__);
-   [self loadCurrentTime];
+    NSLog(@"Start: %s", __func__);
+    [self loadCurrentTime];
 
-   scrollView.contentOffset = CGPointMake(0.0, 0.0);
-   scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [currentTimeArray count], _pageRegion.size.height);
-   pageControl.numberOfPages = [currentTimeArray count];
-   pageControl.currentPage = 0;
+    scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
+    scrollView.backgroundColor = [UIColor blackColor];
+    scrollView.pagingEnabled = YES;
+    scrollView.delegate = self;
+    scrollView.contentOffset = CGPointMake(0.0, 0.0);
+    scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [currentTimeArray count], _pageRegion.size.height);
 
-   NSLog(@"End: %s", __func__);
+    pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
+    pageControl.userInteractionEnabled = NO;
+    pageControl.hidden = YES;
+    pageControl.numberOfPages = [currentTimeArray count];
+    pageControl.numberOfPages = 4;
+    pageControl.currentPage = 0;
+
+    NSLog(@"End: %s", __func__);
 }
 
 - (void)loadCurrentTime {
@@ -105,6 +105,7 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    // NSLog(@"%s", __func__);
     pageControl.hidden = NO;
 
     if ([updateTimer isValid]) {
