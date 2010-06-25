@@ -1,6 +1,9 @@
 #import "PageScrollView.h"
 #import "DigitView.h"
 
+#define TAG_OFFSET 100
+#define PAGE_NUM 4
+
 @implementation PageScrollView
 
 @synthesize updateTimer, delegate;
@@ -22,6 +25,8 @@
 - (void)setPages {
     NSLog(@"Start: %s", __func__);
 
+    [self loadCurrentTime];
+
     scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
     scrollView.backgroundColor = [UIColor blackColor];
     scrollView.pagingEnabled = YES;
@@ -33,7 +38,7 @@
     pageControl.userInteractionEnabled = NO;
     pageControl.hidden = YES;
     pageControl.numberOfPages = [currentTimeArray count];
-    pageControl.numberOfPages = 4;
+    pageControl.numberOfPages = PAGE_NUM;
     pageControl.currentPage = 0;
 
     [self updateClock];
@@ -44,22 +49,29 @@
     NSLog(@"End: %s", __func__);
 }
 
+- (void)prepareDigitView {
+    NSLog(@"Start: %s", __func__);
+
+    for (int i = 0; i < PAGE_NUM; i++) {
+        if (![scrollView viewWithTag:TAG_OFFSET + i]) {
+            NSLog(@"construct subview %d", i);
+            DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
+            digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+            digitView.tag = TAG_OFFSET + i;
+            [scrollView addSubview:digitView];
+            [digitView release];
+        }
+        [[scrollView viewWithTag:TAG_OFFSET + i] text:[currentTimeArray objectAtIndex:i]];
+    }
+
+    NSLog(@"End: %s", __func__);
+}
+
 - (void)updateClock {
     NSLog(@"Start: %s", __func__);
 
     [self loadCurrentTime];
-
-    for (UIView *view in self.subviews) {
-        view = nil;
-    }
-
-    for (int i = 0; i < [currentTimeArray count]; i++) {
-        DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
-        digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        [digitView text:[currentTimeArray objectAtIndex:i]];
-        [scrollView addSubview:digitView];
-        [digitView release];
-    }
+    [self prepareDigitView];
 
     NSLog(@"End: %s", __func__);
 }
