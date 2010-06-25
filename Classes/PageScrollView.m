@@ -14,8 +14,6 @@
           self.delegate = nil;
 
           [self setPages];
-          [self addSubview:scrollView];
-          [self addSubview:pageControl];
       }
       return self;
       NSLog(@"End: %s", __func__);
@@ -40,6 +38,29 @@
 
     [self updateClock];
 
+    [self addSubview:scrollView];
+    [self addSubview:pageControl];
+
+    NSLog(@"End: %s", __func__);
+}
+
+- (void)updateClock {
+    NSLog(@"Start: %s", __func__);
+
+    [self loadCurrentTime];
+
+    for (UIView *view in self.subviews) {
+        view = nil;
+    }
+
+    for (int i = 0; i < [currentTimeArray count]; i++) {
+        DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
+        digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
+        [digitView text:[currentTimeArray objectAtIndex:i]];
+        [scrollView addSubview:digitView];
+        [digitView release];
+    }
+
     NSLog(@"End: %s", __func__);
 }
 
@@ -63,22 +84,6 @@
         }
     }
 
-    NSLog(@"End: %s", __func__);
-}
-
-- (void)updateClock {
-    NSLog(@"Start: %s", __func__);
-    [self loadCurrentTime];
-    for (UIView *view in self.subviews) {
-        view = nil;
-    }
-    for (int i = 0; i < [currentTimeArray count]; i++) {
-        DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
-        digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
-        [digitView text:[currentTimeArray objectAtIndex:i]];
-        [scrollView addSubview:digitView];
-        [digitView release];
-    }
     NSLog(@"End: %s", __func__);
 }
 
