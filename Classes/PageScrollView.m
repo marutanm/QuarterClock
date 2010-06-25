@@ -23,7 +23,6 @@
 
 - (void)setPages {
     NSLog(@"Start: %s", __func__);
-    [self loadCurrentTime];
 
     scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
     scrollView.backgroundColor = [UIColor blackColor];
@@ -38,6 +37,8 @@
     pageControl.numberOfPages = [currentTimeArray count];
     pageControl.numberOfPages = 4;
     pageControl.currentPage = 0;
+
+    [self updateClock];
 
     NSLog(@"End: %s", __func__);
 }
