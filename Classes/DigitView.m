@@ -18,15 +18,15 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UILabel *label = [self label:frame];
-        label.tag = CURRENT;
-        [self addSubview:label];
-        [label release];
+       UILabel *label = [self label:frame];
+       label.tag = CURRENT;
+       [self addSubview:label];
+       [label release];
 
-        // UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
-        // nextLabel.tag = NEXT;
-        // [self addSubview:nextLabel];
-        // [nextLabel release];
+       // UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
+       // nextLabel.tag = NEXT;
+       // [self addSubview:nextLabel];
+       // [nextLabel release];
     }
     return self;
 }
@@ -48,39 +48,36 @@
     // [[self viewWithTag:NEXT] setText:@"X"];
 
     // for (UILabel *label in self.subviews) {
-        // label.text = text;
+    // label.text = text;
     // }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
        NSLog(@"Start: %s", __func__);
 
-       [self slideUpDigit:1];
-
-       CGPoint currenCenter = self.center;
-
-       CGContextRef context = UIGraphicsGetCurrentContext();
-       [UIView beginAnimations:nil context:context];
-       [UIView setAnimationDuration:10.0f];
-       [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-       [UIView setAnimationDidStopSelector:@selector(endAnimation)];
-
-       self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
-
-       [UIView commitAnimations];	
+       [self slideUpDigit:10.0];
 
 }
 
-- (void)slideUpDigit:(float)sec {
-    NSLog(@"Start: %s", __func__);
+- (void)slideUpDigit:(double)sec {
+       NSLog(@"Start: %s", __func__);
 
-    CGRect frame = [[self viewWithTag:CURRENT] frame];
-    UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
-    NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
-    nextLabel.text = [NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)];
+       if (![self viewWithTag:NEXT]) {
+            CGRect frame = [[self viewWithTag:CURRENT] frame];
+            UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
+            nextLabel.tag = NEXT;
+            [self addSubview:nextLabel];
+            [nextLabel release];
+       }
+       // NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
 
-    [self addSubview:nextLabel];
-    [nextLabel release];
+       CGPoint currenCenter = self.center;
+       [UIView animateWithDuration:sec
+                        animations:^{ [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)]];
+                            self.center = CGPointMake(currenCenter.x, currenCenter.y - 480); }
+                            completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; }
+        ];
+
 }
 
 - (void)dealloc {
