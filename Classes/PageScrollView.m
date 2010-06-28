@@ -36,7 +36,7 @@
 
     pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
     pageControl.userInteractionEnabled = NO;
-    pageControl.hidden = YES;
+    pageControl.alpha = 0;
     pageControl.numberOfPages = [currentTimeArray count];
     pageControl.numberOfPages = PAGE_NUM;
     pageControl.currentPage = 0;
@@ -100,17 +100,10 @@
 }
 
 -(void)switchStateHidden {
-    NSLog(@"%s", __func__);
+    // NSLog(@"%s", __func__);
 
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:1.0f];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
-
-    pageControl.hidden = YES;
-
-    [UIView commitAnimations];	
+    [UIView animateWithDuration:0.5 animations:^{ pageControl.alpha = 0.0; }];
+    
 }
 
 - (void)setCurrentPage:(int)page {
@@ -124,7 +117,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     // NSLog(@"%s", __func__);
-    pageControl.hidden = NO;
+    pageControl.alpha = 1.0;
 
     if ([updateTimer isValid]) {
         [updateTimer invalidate];
