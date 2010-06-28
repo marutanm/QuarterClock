@@ -49,7 +49,7 @@
     NSLog(@"End: %s", __func__);
 }
 
-- (void)prepareDigitView {
+- (void)reloadDigitView {
     NSLog(@"Start: %s", __func__);
 
     for (int i = 0; i < PAGE_NUM; i++) {
@@ -70,7 +70,7 @@
     NSLog(@"Start: %s", __func__);
 
     [self loadCurrentTime];
-    [self prepareDigitView];
+    [self reloadDigitView];
 
     NSLog(@"End: %s", __func__);
 }
