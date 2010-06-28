@@ -54,7 +54,6 @@
 
     for (int i = 0; i < PAGE_NUM; i++) {
         if (![scrollView viewWithTag:TAG_OFFSET + i]) {
-            NSLog(@"construct subview %d", i);
             DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
             digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
             digitView.tag = TAG_OFFSET + i;
