@@ -5,6 +5,7 @@
     UIPageControl *pageControl;
     NSTimer *updateTimer;
     NSMutableArray *currentTimeArray;
+    NSInteger *sec;
     
     CGRect _pageRegion, _controlRegion;
 }
