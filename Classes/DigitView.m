@@ -23,10 +23,10 @@
         [self addSubview:label];
         [label release];
 
-        UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
-        nextLabel.tag = NEXT;
-        [self addSubview:nextLabel];
-        [nextLabel release];
+        // UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
+        // nextLabel.tag = NEXT;
+        // [self addSubview:nextLabel];
+        // [nextLabel release];
     }
     return self;
 }
@@ -45,7 +45,7 @@
 
 - (void)text:(NSString *)text {
     [[self viewWithTag:CURRENT] setText:text];
-    [[self viewWithTag:NEXT] setText:@"X"];
+    // [[self viewWithTag:NEXT] setText:@"X"];
 
     // for (UILabel *label in self.subviews) {
         // label.text = text;
@@ -53,19 +53,34 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+       NSLog(@"Start: %s", __func__);
+
+       [self slideUpDigit:1];
+
+       CGPoint currenCenter = self.center;
+
+       CGContextRef context = UIGraphicsGetCurrentContext();
+       [UIView beginAnimations:nil context:context];
+       [UIView setAnimationDuration:10.0f];
+       [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+       [UIView setAnimationDidStopSelector:@selector(endAnimation)];
+
+       self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
+
+       [UIView commitAnimations];	
+
+}
+
+- (void)slideUpDigit:(float)sec {
     NSLog(@"Start: %s", __func__);
-    CGPoint currenCenter = self.center;
 
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:10.0f];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
+    CGRect frame = [[self viewWithTag:CURRENT] frame];
+    UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
+    NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
+    nextLabel.text = [NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)];
 
-    self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
-
-    [UIView commitAnimations];	
-
+    [self addSubview:nextLabel];
+    [nextLabel release];
 }
 
 - (void)dealloc {
