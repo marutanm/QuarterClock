@@ -73,6 +73,8 @@
 
        CGPoint currenCenter = self.center;
        [UIView animateWithDuration:sec
+                        delay:0
+                      options:UIViewAnimationOptionAllowUserInteraction
                         animations:^{ [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)]];
                             self.center = CGPointMake(currenCenter.x, currenCenter.y - 480); }
                             completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; }
