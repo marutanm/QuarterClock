@@ -63,8 +63,9 @@
         [[scrollView viewWithTag:TAG_OFFSET + i] text:[currentTimeArray objectAtIndex:i]];
     }
 
+    NSLog(@"%d", sec);
     if (sec > 50) {
-        // [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
+        [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
         // if ([currentTimeArray objectAtIndex:3] == 9) {
                    // [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0];
         // }
@@ -93,13 +94,14 @@
 
     NSString *date = [NSString stringWithString:[[NSDate date] description]];
     NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
-    sec = [[time componentsSeparatedByString:@":"] objectAtIndex:2];
-    NSLog(@"%@", sec);
+    // NSLog(@"%@", [time characterAtIndex:0]);
+    sec = [[[time componentsSeparatedByString:@":"] objectAtIndex:2] integerValue];
+    // NSLog(@"%@", sec);
 
-    // for (int i = 0; i < digits + 1; i++) {
-    for (int i = 0; i < 5; i++) {
-        if (i != 2) {
-            [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
+    // for (int i = 0; i < [time length]; i++) {
+    for (int i = 0; i < PAGE_NUM + 1; i++) {
+        if (![[time substringWithRange:NSMakeRange(i, 1)] isEqualToString:@":"]) {
+           [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
 
