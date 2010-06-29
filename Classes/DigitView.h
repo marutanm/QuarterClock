@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    animating,
+    waiting
+} viewStatement;
 
 @interface DigitView : UIView {
+
+viewStatement state;
 
 }
 

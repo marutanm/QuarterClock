@@ -28,6 +28,7 @@
        // [self addSubview:nextLabel];
        // [nextLabel release];
     }
+    state = waiting;
     return self;
 }
 
@@ -44,7 +45,9 @@
 }
 
 - (void)text:(NSString *)text {
-    [[self viewWithTag:CURRENT] setText:text];
+    if (state != animating) {
+        [[self viewWithTag:CURRENT] setText:text];
+    } 
     // [[self viewWithTag:NEXT] setText:@"X"];
 
     // for (UILabel *label in self.subviews) {
@@ -55,7 +58,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
        NSLog(@"Start: %s", __func__);
 
-       [self slideUpDigit:10.0];
+       // [self slideUpDigit:10.0];
 
 }
 
@@ -71,14 +74,18 @@
        }
        // NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
 
-       CGPoint currenCenter = self.center;
-       [UIView animateWithDuration:sec
-                        delay:0
-                      options:UIViewAnimationOptionAllowUserInteraction
-                        animations:^{ [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)]];
-                            self.center = CGPointMake(currenCenter.x, currenCenter.y - 480); }
-                            completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; }
-        ];
+       if (state != animating) {
+           NSLog(@"ANIMATING");
+           CGPoint currenCenter = self.center;
+           state = animating;
+           [UIView animateWithDuration:sec
+                                 delay:0
+                               options:UIViewAnimationOptionAllowUserInteraction
+                            animations:^{ [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)]];
+                                self.center = CGPointMake(currenCenter.x, currenCenter.y - 480); }
+completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; state = waiting;}
+           ];
+       }
 
 }
 
