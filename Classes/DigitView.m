@@ -58,7 +58,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
        NSLog(@"Start: %s", __func__);
 
-       // [self slideUpDigit:10.0];
+       [self slideUpDigit:10.0];
 
 }
 
@@ -74,16 +74,25 @@
        }
        // NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
 
+       void (^slideUp)(void) = ^{
+           CGPoint currenCenter = self.center;
+           int nextVal = [[[self viewWithTag:CURRENT] text] integerValue] + 1;
+           if (nextVal == 10) {
+               nextVal =  0;
+           }
+           [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", nextVal]];
+           self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
+       };
+
        if (state != animating) {
            NSLog(@"ANIMATING");
            CGPoint currenCenter = self.center;
            state = animating;
            [UIView animateWithDuration:sec
                                  delay:0
-                               options:UIViewAnimationOptionAllowUserInteraction
-                            animations:^{ [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", ([[[self viewWithTag:CURRENT] text] integerValue] + 1)]];
-                                self.center = CGPointMake(currenCenter.x, currenCenter.y - 480); }
-completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; state = waiting;}
+                               options:UIViewAnimationOptionAllowUserInteraction + UIViewAnimationOptionAutoreverse
+                            animations:slideUp
+                            completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; state = waiting;}
            ];
        }
 
