@@ -72,7 +72,8 @@
     NSLog(@"%d", sec);
     if (sec >= 50) {
         [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
-        if ([[currentTimeArray objectAtIndex:3] isEqualToString:@"9"]) {
+        // if ([[currentTimeArray objectAtIndex:3] isEqualToString:@"9"]) {
+          if ([[currentTimeArray objectAtIndex:3] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 3] maxValue]) {
                    [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0];
         }
     }
