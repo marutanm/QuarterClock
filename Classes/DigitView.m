@@ -90,9 +90,13 @@
            state = animating;
            [UIView animateWithDuration:sec
                                  delay:0
-                               options:UIViewAnimationOptionAllowUserInteraction + UIViewAnimationOptionAutoreverse
+                               options:UIViewAnimationOptionAllowUserInteraction
                             animations:slideUp
-                            completion:^(BOOL finished){ [self text:[[self viewWithTag:NEXT] text]]; self.center = currenCenter; state = waiting;}
+                            completion:^(BOOL finished){
+                                [[self viewWithTag:CURRENT] setText:[[self viewWithTag:NEXT] text]];
+                                self.center = currenCenter;
+                                state = waiting;
+                            }
            ];
        }
 
