@@ -15,8 +15,11 @@ typedef enum {
 
 @interface DigitView : UIView {
 
-viewStatement state;
+    NSInteger maxValue;
+    viewStatement state;
 
 }
+
+@property (assign, nonatomic) NSInteger maxValue;
 
 @end

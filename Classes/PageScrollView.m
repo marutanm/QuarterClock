@@ -57,14 +57,20 @@
             DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
             digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
             digitView.tag = TAG_OFFSET + i;
+            digitView.maxValue = 9;
+            if (i == 0) {
+                digitView.maxValue = 2;
+            } else if (i == 2){
+                digitView.maxValue = 5;
+            }
             [scrollView addSubview:digitView];
             [digitView release];
         }
-        [[scrollView viewWithTag:TAG_OFFSET + i] text:[currentTimeArray objectAtIndex:i]];
+        [[scrollView viewWithTag:TAG_OFFSET + i] setCurrentTime:[currentTimeArray objectAtIndex:i]];
     }
 
     NSLog(@"%d", sec);
-    if (sec > 50) {
+    if (sec >= 50) {
         [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
         if ([[currentTimeArray objectAtIndex:3] isEqualToString:@"9"]) {
                    [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0];

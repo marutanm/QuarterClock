@@ -13,8 +13,18 @@
 #define CURRENT 50
 #define NEXT 60
 
+int (^nextVal)(int, int) = ^(int current, int max) {
+    current++;
+    if (current > max) {
+        return 0;
+    } else {
+        return current;
+    }
+};
+
 @implementation DigitView
 
+@synthesize maxValue;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -44,7 +54,7 @@
     return label;
 }
 
-- (void)text:(NSString *)text {
+- (void)setCurrentTime:(NSString *)text {
     if (state != animating) {
         [[self viewWithTag:CURRENT] setText:text];
     } 
@@ -76,11 +86,11 @@
 
        void (^slideUp)(void) = ^{
            CGPoint currenCenter = self.center;
-           int nextVal = [[[self viewWithTag:CURRENT] text] integerValue] + 1;
-           if (nextVal == 10) {
-               nextVal =  0;
-           }
-           [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", nextVal]];
+           // int nextVal = [[[self viewWithTag:CURRENT] text] integerValue] + 1;
+           // if (nextVal == 10) {
+               // nextVal =  0;
+           // }
+           [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", nextVal([[[self viewWithTag:CURRENT] text] integerValue], maxValue)]];
            self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
        };
 
