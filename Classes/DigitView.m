@@ -32,11 +32,6 @@ int (^nextVal)(int, int) = ^(int current, int max) {
        label.tag = CURRENT;
        [self addSubview:label];
        [label release];
-
-       // UILabel *nextLabel = [self label:CGRectMake(frame.origin.x, frame.origin.y + frame.size.height, frame.size.width, frame.size.height)];
-       // nextLabel.tag = NEXT;
-       // [self addSubview:nextLabel];
-       // [nextLabel release];
     }
     state = waiting;
     return self;
@@ -44,7 +39,6 @@ int (^nextVal)(int, int) = ^(int current, int max) {
 
 - (UILabel *)label:(CGRect)frame {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    // UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     label.backgroundColor = [UIColor blackColor];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:500];
@@ -58,11 +52,6 @@ int (^nextVal)(int, int) = ^(int current, int max) {
     if (state != animating) {
         [[self viewWithTag:CURRENT] setText:text];
     } 
-    // [[self viewWithTag:NEXT] setText:@"X"];
-
-    // for (UILabel *label in self.subviews) {
-    // label.text = text;
-    // }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -82,14 +71,9 @@ int (^nextVal)(int, int) = ^(int current, int max) {
             [self addSubview:nextLabel];
             [nextLabel release];
        }
-       // NSLog(@"%d", [[[self viewWithTag:CURRENT] text] integerValue] + 1);
 
        void (^slideUp)(void) = ^{
            CGPoint currenCenter = self.center;
-           // int nextVal = [[[self viewWithTag:CURRENT] text] integerValue] + 1;
-           // if (nextVal == 10) {
-               // nextVal =  0;
-           // }
            [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", nextVal([[[self viewWithTag:CURRENT] text] integerValue], maxValue)]];
            self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
        };
