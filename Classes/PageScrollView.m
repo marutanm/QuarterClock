@@ -23,7 +23,6 @@
 }
 
 - (void)setPages {
-    NSLog(@"Start: %s", __func__);
 
     [self loadCurrentTime];
 
@@ -46,11 +45,9 @@
     [self addSubview:scrollView];
     [self addSubview:pageControl];
 
-    NSLog(@"End: %s", __func__);
 }
 
 - (void)reloadDigitView {
-    NSLog(@"Start: %s", __func__);
 
     for (int i = 0; i < PAGE_NUM; i++) {
         if (![scrollView viewWithTag:TAG_OFFSET + i]) {
@@ -85,45 +82,35 @@
         }
     }
 
-    NSLog(@"End: %s", __func__);
 }
 
 - (void)updateClock {
-    NSLog(@"Start: %s", __func__);
 
     [self loadCurrentTime];
     [self reloadDigitView];
 
-    NSLog(@"End: %s", __func__);
 }
 
 - (void)loadCurrentTime {
-    NSLog(@"Start: %s", __func__);
 
     if (!currentTimeArray) {
-        // currentTimeArray = [NSMutableArray array];
         currentTimeArray = [[NSMutableArray alloc] init];
     }
     [currentTimeArray removeAllObjects];
 
     NSString *date = [NSString stringWithString:[[NSDate date] description]];
     NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
-    // NSLog(@"%@", [time characterAtIndex:0]);
     sec = [[[time componentsSeparatedByString:@":"] objectAtIndex:2] integerValue];
-    // NSLog(@"%@", sec);
 
-    // for (int i = 0; i < [time length]; i++) {
     for (int i = 0; i < PAGE_NUM + 1; i++) {
         if (![[time substringWithRange:NSMakeRange(i, 1)] isEqualToString:@":"]) {
            [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
         }
     }
 
-    NSLog(@"End: %s", __func__);
 }
 
 -(void)switchStateHidden {
-    // NSLog(@"%s", __func__);
 
     [UIView animateWithDuration:0.5 animations:^{ pageControl.alpha = 0.0; }];
     
@@ -139,7 +126,6 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    // NSLog(@"%s", __func__);
     pageControl.alpha = 1.0;
 
     if ([updateTimer isValid]) {
@@ -148,7 +134,6 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    // NSLog(@"%s", __func__);
     pageControl.currentPage = self.currentPage;
 
     // hide pageControl 1 sec later by timer
