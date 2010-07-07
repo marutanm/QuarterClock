@@ -2,7 +2,6 @@
 
 @interface PageScrollView : UIView <UIScrollViewDelegate> {
     UIScrollView *scrollView;
-    NSTimer *updateTimer;
     NSMutableString *currentTime;
     NSInteger *sec;
     

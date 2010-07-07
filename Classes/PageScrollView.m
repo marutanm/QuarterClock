@@ -23,8 +23,6 @@
 
 - (void)setPages {
 
-    [self loadCurrentTime];
-
     scrollView = [[UIScrollView alloc] initWithFrame:_pageRegion];
     scrollView.backgroundColor = [UIColor blackColor];
     scrollView.pagingEnabled = YES;
@@ -33,9 +31,27 @@
     scrollView.contentSize = CGSizeMake(_pageRegion.size.width * PAGE_NUM, _pageRegion.size.height);
 
     [self updateClock];
-
     [self addSubview:scrollView];
 
+}
+
+- (void)updateClock {
+
+    [self loadCurrentTime];
+    [self reloadDigitView];
+
+}
+
+- (void)loadCurrentTime {
+
+    NSDateFormatter *hhmm = [[[NSDateFormatter alloc] init] autorelease];
+    [hhmm setDateFormat:@"HHmm"];
+    currentTime = [hhmm stringFromDate:[NSDate date]];
+
+    [hhmm setDateFormat:@"ss"];
+    sec = [[hhmm stringFromDate:[NSDate date]] integerValue];
+
+    NSLog(@"%@ %d", currentTime, sec);
 }
 
 - (void)reloadDigitView {
@@ -73,27 +89,6 @@
         }
     }
 
-}
-
-- (void)updateClock {
-
-    [self loadCurrentTime];
-    [self reloadDigitView];
-
-}
-
-- (void)loadCurrentTime {
-    // NSLog(@"Start: %s", __func__);
-
-    NSDateFormatter *hhmm = [[[NSDateFormatter alloc] init] autorelease];
-    [hhmm setDateFormat:@"HHmm"];
-    currentTime = [hhmm stringFromDate:[NSDate date]];
-
-    [hhmm setDateFormat:@"ss"];
-    sec = [[hhmm stringFromDate:[NSDate date]] integerValue];
-
-    NSLog(@"%@ %d", currentTime, sec);
-    // NSLog(@"End: %s", __func__);
 }
 
 @end
