@@ -12,9 +12,6 @@
 
 @interface ClockViewController : UIViewController {
     PageScrollView *scrollView;
-    NSMutableArray *currentTimeArray;
-    NSInteger labelTag;
-    NSInteger currentDigits;
 }
 
 @property (nonatomic, retain) NSMutableArray *currentTimeArray;

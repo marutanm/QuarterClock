@@ -39,6 +39,7 @@ int digits = 4;
 
 - (void)dealloc {
     [super dealloc];
+    [scrollView dealloc];
 }
 
 
