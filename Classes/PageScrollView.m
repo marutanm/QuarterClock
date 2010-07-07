@@ -18,6 +18,9 @@
 
           [self setPages];
       }
+
+      currentTime = [[NSMutableString alloc] init];
+
       return self;
       NSLog(@"End: %s", __func__);
 }
@@ -31,12 +34,11 @@
     scrollView.pagingEnabled = YES;
     scrollView.delegate = self;
     scrollView.contentOffset = CGPointMake(0.0, 0.0);
-    scrollView.contentSize = CGSizeMake(_pageRegion.size.width * [currentTimeArray count], _pageRegion.size.height);
+    scrollView.contentSize = CGSizeMake(_pageRegion.size.width * PAGE_NUM, _pageRegion.size.height);
 
     pageControl = [[UIPageControl alloc] initWithFrame:_controlRegion];
     pageControl.userInteractionEnabled = NO;
     pageControl.alpha = 0;
-    pageControl.numberOfPages = [currentTimeArray count];
     pageControl.numberOfPages = PAGE_NUM;
     pageControl.currentPage = 0;
 
@@ -48,6 +50,7 @@
 }
 
 - (void)reloadDigitView {
+    NSLog(@"Start: %s", __func__);
 
     for (int i = 0; i < PAGE_NUM; i++) {
         if (![scrollView viewWithTag:TAG_OFFSET + i]) {
@@ -63,17 +66,16 @@
             [scrollView addSubview:digitView];
             [digitView release];
         }
-        [[scrollView viewWithTag:TAG_OFFSET + i] setCurrentTime:[currentTimeArray objectAtIndex:i]];
+        [[scrollView viewWithTag:TAG_OFFSET + i] setCurrentTime:[currentTime substringWithRange:NSMakeRange(i, 1)]];
     }
 
-    NSLog(@"%d", sec);
     if (sec >= 50) {
         [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
-        if ([[currentTimeArray objectAtIndex:3] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 3] maxValue]) {
+        if ([[currentTime substringWithRange:NSMakeRange(3, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 3] maxValue]) {
                     [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0];
-                    if ([[currentTimeArray objectAtIndex:2] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 2] maxValue]) {
+                    if ([[currentTime substringWithRange:NSMakeRange(2, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 2] maxValue]) {
                                 [[scrollView viewWithTag:TAG_OFFSET + 1] slideUpDigit:10.0];
-                                if ([[currentTimeArray objectAtIndex:1] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 1] maxValue]) {
+                                if ([[currentTime substringWithRange:NSMakeRange(1, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 1] maxValue]) {
                                             [[scrollView viewWithTag:TAG_OFFSET + 0] slideUpDigit:10.0];
                                 } else if (([[scrollView viewWithTag:TAG_OFFSET + 0] integerValue] == 2) && ([[scrollView viewWithTag:TAG_OFFSET +1] integerValue] == 3)) {
                                             [[scrollView viewWithTag:TAG_OFFSET + 0] slideUpDigit:10.0];
@@ -92,22 +94,17 @@
 }
 
 - (void)loadCurrentTime {
+    // NSLog(@"Start: %s", __func__);
 
-    if (!currentTimeArray) {
-        currentTimeArray = [[NSMutableArray alloc] init];
-    }
-    [currentTimeArray removeAllObjects];
+    NSDateFormatter *hhmm = [[[NSDateFormatter alloc] init] autorelease];
+    [hhmm setDateFormat:@"HHmm"];
+    currentTime = [hhmm stringFromDate:[NSDate date]];
 
-    NSString *date = [NSString stringWithString:[[NSDate date] description]];
-    NSString *time = [NSString stringWithString:[[date componentsSeparatedByString:@" "] objectAtIndex:1]];
-    sec = [[[time componentsSeparatedByString:@":"] objectAtIndex:2] integerValue];
+    [hhmm setDateFormat:@"ss"];
+    sec = [[hhmm stringFromDate:[NSDate date]] integerValue];
 
-    for (int i = 0; i < PAGE_NUM + 1; i++) {
-        if (![[time substringWithRange:NSMakeRange(i, 1)] isEqualToString:@":"]) {
-           [currentTimeArray addObject:[time substringWithRange:NSMakeRange(i, 1)]];
-        }
-    }
-
+    NSLog(@"%@ %d", currentTime, sec);
+    // NSLog(@"End: %s", __func__);
 }
 
 -(void)switchStateHidden {

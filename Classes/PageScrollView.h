@@ -4,7 +4,7 @@
     UIScrollView *scrollView;
     UIPageControl *pageControl;
     NSTimer *updateTimer;
-    NSMutableArray *currentTimeArray;
+    NSMutableString *currentTime;
     NSInteger *sec;
     
     CGRect _pageRegion, _controlRegion;
