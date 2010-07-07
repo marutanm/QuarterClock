@@ -12,6 +12,4 @@
 - (void)layoutViews;
 - (void)notifyPageChange;
 
-@property(nonatomic,assign) NSTimer *updateTimer;
-
 @end
