@@ -2,7 +2,6 @@
 
 @interface PageScrollView : UIView <UIScrollViewDelegate> {
     UIScrollView *scrollView;
-    UIPageControl *pageControl;
     NSTimer *updateTimer;
     NSMutableString *currentTime;
     NSInteger *sec;
@@ -13,8 +12,6 @@
 - (void)layoutViews;
 - (void)notifyPageChange;
 
-@property(nonatomic,assign,getter=getCurrentPage) int currentPage; 
 @property(nonatomic,assign) NSTimer *updateTimer;
-@property(nonatomic,assign) id delegate;
 
 @end
