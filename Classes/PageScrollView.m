@@ -17,6 +17,8 @@
           currentTime = [[NSMutableString alloc] init];
       }
 
+      [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
+
       return self;
       NSLog(@"End: %s", __func__);
 }

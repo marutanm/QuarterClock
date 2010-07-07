@@ -19,8 +19,6 @@ int digits = 4;
     [super loadView];
     scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:scrollView];
-
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:scrollView selector:@selector(updateClock) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning {
