@@ -13,8 +13,6 @@
           _pageRegion = CGRectMake(0, 0, frame.size.width, frame.size.height);
           _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           [self setPages];
-
-          currentTime = [[NSMutableString alloc] init];
       }
 
       [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateClock) userInfo:nil repeats:YES];
@@ -34,30 +32,32 @@
 
     [self updateClock];
     [self addSubview:scrollView];
-
 }
 
 - (void)updateClock {
-
     [self loadCurrentTime];
     [self reloadDigitView];
-
 }
 
 - (void)loadCurrentTime {
 
-    NSDateFormatter *hhmm = [[[NSDateFormatter alloc] init] autorelease];
-    [hhmm setDateFormat:@"HHmm"];
-    currentTime = [hhmm stringFromDate:[NSDate date]];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"HH"];
+    hour = [[formatter stringFromDate:[NSDate date]] integerValue];
+    [formatter setDateFormat:@"mm"];
+    min = [[formatter stringFromDate:[NSDate date]] integerValue];
+    [formatter setDateFormat:@"ss"];
+    sec = [[formatter stringFromDate:[NSDate date]] integerValue];
 
-    [hhmm setDateFormat:@"ss"];
-    sec = [[hhmm stringFromDate:[NSDate date]] integerValue];
-
-    NSLog(@"%@ %d", currentTime, sec);
+    NSLog(@"%d %d %d", hour, min, sec);
 }
 
 - (void)reloadDigitView {
     NSLog(@"Start: %s", __func__);
+
+    NSMutableString *currentTime = [NSMutableString stringWithCapacity:PAGE_NUM];
+    [currentTime appendString:[NSString stringWithFormat:@"%d", hour]];
+    [currentTime appendString:[NSString stringWithFormat:@"%d", min]];
 
     for (int i = 0; i < PAGE_NUM; i++) {
         if (![scrollView viewWithTag:TAG_OFFSET + i]) {

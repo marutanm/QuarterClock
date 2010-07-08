@@ -2,8 +2,7 @@
 
 @interface PageScrollView : UIView <UIScrollViewDelegate> {
     UIScrollView *scrollView;
-    NSMutableString *currentTime;
-    NSInteger *sec;
+    NSInteger hour, min, sec;
     
     CGRect _pageRegion, _controlRegion;
 }
