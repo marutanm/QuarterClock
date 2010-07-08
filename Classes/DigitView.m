@@ -24,8 +24,6 @@ int (^nextVal)(int, int) = ^(int current, int max) {
 
 @implementation DigitView
 
-@synthesize maxValue;
-
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
        UILabel *label = [self label:frame];
