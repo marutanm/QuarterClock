@@ -4,7 +4,7 @@
     UIScrollView *scrollView;
     NSInteger hour, min, sec;
     
-    CGRect _pageRegion, _controlRegion;
+    CGRect _pageRegion;
 }
 
 - (void)layoutViews;

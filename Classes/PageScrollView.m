@@ -11,7 +11,6 @@
       self = [super initWithFrame:frame];
       if (self != nil) {
           _pageRegion = CGRectMake(0, 0, frame.size.width, frame.size.height);
-          _controlRegion = CGRectMake(0, frame.size.height - 60.0, frame.size.width, 60.0);
           [self setPages];
       }
 
