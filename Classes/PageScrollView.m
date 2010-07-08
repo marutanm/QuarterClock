@@ -55,42 +55,47 @@
 - (void)reloadDigitView {
     NSLog(@"Start: %s", __func__);
 
+    id (^strTime)(int) = ^(int current){
+        if (current < 10) {
+            return [NSString stringWithFormat:@"0%d", current];
+        } else {
+            return [NSString stringWithFormat:@"%d", current];
+        }
+    };
+
     NSMutableString *currentTime = [NSMutableString stringWithCapacity:PAGE_NUM];
-    [currentTime appendString:[NSString stringWithFormat:@"%d", hour]];
-    [currentTime appendString:[NSString stringWithFormat:@"%d", min]];
+    [currentTime appendString:strTime(hour)];
+    [currentTime appendString:strTime(min)];
 
     for (int i = 0; i < PAGE_NUM; i++) {
         if (![scrollView viewWithTag:TAG_OFFSET + i]) {
             DigitView *digitView = [[DigitView alloc] initWithFrame:_pageRegion];
             digitView.frame = CGRectMake(_pageRegion.size.width * i, 0.0, _pageRegion.size.width, _pageRegion.size.height);
             digitView.tag = TAG_OFFSET + i;
-            digitView.maxValue = 9;
-            if (i == 0) {
-                digitView.maxValue = 2;
-            } else if (i == 2){
-                digitView.maxValue = 5;
-            }
+
             [scrollView addSubview:digitView];
             [digitView release];
         }
         [[scrollView viewWithTag:TAG_OFFSET + i] setCurrentTime:[currentTime substringWithRange:NSMakeRange(i, 1)]];
     }
 
+    int (^incrementedTime)(int, int) = ^(int current, int max){ current++; if (current == max) return 0; return current; };
+
     if (sec >= 50) {
-        [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0];
-        if ([[currentTime substringWithRange:NSMakeRange(3, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 3] maxValue]) {
-                    [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0];
-                    if ([[currentTime substringWithRange:NSMakeRange(2, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 2] maxValue]) {
-                                [[scrollView viewWithTag:TAG_OFFSET + 1] slideUpDigit:10.0];
-                                if ([[currentTime substringWithRange:NSMakeRange(1, 1)] integerValue] == [[scrollView viewWithTag:TAG_OFFSET + 1] maxValue]) {
-                                            [[scrollView viewWithTag:TAG_OFFSET + 0] slideUpDigit:10.0];
-                                } else if (([[scrollView viewWithTag:TAG_OFFSET + 0] integerValue] == 2) && ([[scrollView viewWithTag:TAG_OFFSET +1] integerValue] == 3)) {
-                                            [[scrollView viewWithTag:TAG_OFFSET + 0] slideUpDigit:10.0];
-                                }
-                    }
+        if (min % 10 == 9) {
+            min = incrementedTime(min, 60);
+            [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0 value:[NSString stringWithFormat:@"%d", (min % 10)]];
+            [[scrollView viewWithTag:TAG_OFFSET + 2] slideUpDigit:10.0 value:[NSString stringWithFormat:@"%d", (min / 10)]];
+        } else {
+            min = incrementedTime(min, 60);
+            [[scrollView viewWithTag:TAG_OFFSET + 3] slideUpDigit:10.0 value:[NSString stringWithFormat:@"%d", (min % 10)]];
         }
     }
-
+    if (min >= 59) {
+        hour = incrementedTime(hour, 24);
+        [[scrollView viewWithTag:TAG_OFFSET + 1] slideUpDigit:60.0 value:[NSString stringWithFormat:@"%d", (hour % 10)]];
+        [[scrollView viewWithTag:TAG_OFFSET + 0] slideUpDigit:60.0 value:[NSString stringWithFormat:@"%d", (hour / 10)]];
+    }
 }
 
 @end

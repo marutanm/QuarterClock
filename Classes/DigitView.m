@@ -57,11 +57,11 @@ int (^nextVal)(int, int) = ^(int current, int max) {
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
        NSLog(@"Start: %s", __func__);
 
-       [self slideUpDigit:10.0];
+       // [self slideUpDigit:10.0];
 
 }
 
-- (void)slideUpDigit:(double)sec {
+- (void)slideUpDigit:(double)sec value:(NSString *)value{
        NSLog(@"Start: %s", __func__);
 
        if (![self viewWithTag:NEXT]) {
@@ -74,7 +74,7 @@ int (^nextVal)(int, int) = ^(int current, int max) {
 
        void (^slideUp)(void) = ^{
            CGPoint currenCenter = self.center;
-           [[self viewWithTag:NEXT] setText:[NSString stringWithFormat:@"%d", nextVal([[[self viewWithTag:CURRENT] text] integerValue], maxValue)]];
+           [[self viewWithTag:NEXT] setText:value];
            self.center = CGPointMake(currenCenter.x, currenCenter.y - 480);
        };
 
