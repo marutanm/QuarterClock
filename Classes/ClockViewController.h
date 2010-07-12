@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PageScrollView;
 
 @interface ClockViewController : UIViewController {
-    PageScrollView *scrollView;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ClockViewController.h"
+#import "PageScrollView.h"
 
 @implementation ClockViewController
 
@@ -15,8 +16,9 @@ int digits = 4;
 - (void)loadView {
     NSLog(@"%s", __func__);
     [super loadView];
-    scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    PageScrollView *scrollView = [[PageScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:scrollView];
+    [scrollView release];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,7 +37,6 @@ int digits = 4;
 
 - (void)dealloc {
     [super dealloc];
-    [scrollView dealloc];
 }
 
 
