@@ -10,8 +10,6 @@
 
 @implementation ClockViewController
 
-@synthesize currentTimeArray;
-
 int digits = 4;
 
 - (void)loadView {

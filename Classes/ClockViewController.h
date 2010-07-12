@@ -9,15 +9,8 @@
 #import <UIKit/UIKit.h>
 @class PageScrollView;
 
-
 @interface ClockViewController : UIViewController {
     PageScrollView *scrollView;
 }
-
-@property (nonatomic, retain) NSMutableArray *currentTimeArray;
-
-- (UILabel *)loadLabel; 
-- (void)loadCurrentTime;
-- (void)updateClock;
 
 @end
