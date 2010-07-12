@@ -7,7 +7,10 @@
     CGRect _pageRegion;
 }
 
-- (void)layoutViews;
-- (void)notifyPageChange;
+- (id)initWithFrame:(CGRect)frame;
+- (void)setPages;
+- (void)updateClock;
+- (void)loadCurrentTime;
+- (void)reloadDigitView;
 
 @end
