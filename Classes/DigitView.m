@@ -52,13 +52,6 @@ int (^nextVal)(int, int) = ^(int current, int max) {
     } 
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-       NSLog(@"Start: %s", __func__);
-
-       // [self slideUpDigit:10.0];
-
-}
-
 - (void)slideUpDigit:(double)sec value:(NSString *)value{
        NSLog(@"Start: %s", __func__);
 

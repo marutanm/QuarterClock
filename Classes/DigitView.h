@@ -21,7 +21,6 @@ typedef enum {
 
 - (UILabel *)label:(CGRect)frame;
 - (void)setCurrentTime:(NSString *)text;
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)slideUpDigit:(double)sec value:(NSString *)value;
 
 @end
