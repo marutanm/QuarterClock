@@ -14,6 +14,7 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		5032072E11C6560800C65899 /* ClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5032072D11C6560800C65899 /* ClockViewController.m */; };
 		506807EF11CA6D3F002C39DF /* PageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 506807EE11CA6D3F002C39DF /* PageScrollView.m */; };
+		50A08BE612D4B170005FF6E2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A08BE512D4B170005FF6E2 /* icon.png */; };
 		50DAE17011CD04F600A8AE18 /* DigitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DAE16F11CD04F600A8AE18 /* DigitView.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		5032072D11C6560800C65899 /* ClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockViewController.m; sourceTree = "<group>"; };
 		506807ED11CA6D3F002C39DF /* PageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageScrollView.h; sourceTree = "<group>"; };
 		506807EE11CA6D3F002C39DF /* PageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageScrollView.m; sourceTree = "<group>"; };
+		50A08BE512D4B170005FF6E2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		50DAE16E11CD04F600A8AE18 /* DigitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitView.h; sourceTree = "<group>"; };
 		50DAE16F11CD04F600A8AE18 /* DigitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DigitView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* QuarterClock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QuarterClock-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				50A08BE512D4B170005FF6E2 /* icon.png */,
 				8D1107310486CEB800E47090 /* QuarterClock-Info.plist */,
 			);
 			name = Resources;
@@ -138,7 +141,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "QuarterClock" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -153,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50A08BE612D4B170005FF6E2 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
